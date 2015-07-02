@@ -1,5 +1,14 @@
 class precip::php {
   
+  ::apt::key { '14AA40EC0831756756D7F66C4F4EA0AAE5267A6C':
+    server => 'hkp://keyserver.ubuntu.com:80'
+  }
+  
+  ::apt::ppa { 'ppa:ondrej/php5-5.6':
+    package_manage => true,
+    require => ::Apt::Key['14AA40EC0831756756D7F66C4F4EA0AAE5267A6C']
+  }
+  
   class { 'php::cli': }
   
   file {[
@@ -39,7 +48,6 @@ class precip::php {
     'curl',
     'xdebug',
     'imagick',
-    'xhprof',
     'memcached']:
     notify => Service['httpd'],
   }
@@ -50,7 +58,7 @@ class precip::php {
       'xdebug.remote_connect_back' => '1',
       'xdebug.idekey' => 'vagrant',
     },
-    zend => '/usr/lib/php5/20121212',
+    zend => '/usr/lib/php5/20131226',
     notify => Service['httpd'],
   }
   
