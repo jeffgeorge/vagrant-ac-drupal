@@ -1,10 +1,10 @@
 class precip {
-  
+
   # ~magic incantations~ to ensure apt-get update runs before any package is installed
   Exec["apt_update"] -> Package <| |>
-  
+
   class { 'apt': }
-  
+
   # Grab some helpful base packages
   package {[
     "ntp",
@@ -15,6 +15,7 @@ class precip {
     "git",
     "openssl",
     "imagemagick",
+    "wkhtmltopdf",
     "vim",
     "g++",
     ]:
@@ -63,7 +64,7 @@ class precip {
   }
 
   # Bring in Mailcatcher, because Mailcatcher is neat.
-  class { 'mailcatcher': 
+  class { 'mailcatcher':
     require => Package['g++']
   }
 
@@ -71,7 +72,7 @@ class precip {
   include 'precip::php'
   include 'precip::httpd'
   include 'precip::database'
-  
+
   file { "/etc/init/restart_services_once_mounted.conf":
     content => template("precip/restart_services_once_mounted.conf.erb"),
     ensure  => 'file',
