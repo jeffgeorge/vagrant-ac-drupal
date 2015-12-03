@@ -51,7 +51,7 @@ class precip::php {
       'xdebug.remote_enable' => '1',
       'xdebug.remote_connect_back' => '1',
       'xdebug.idekey' => 'vagrant',
-      'xdebug.max_nesting_level' => '1000',
+      'xdebug.max_nesting_level' =>  '1000',
     },
     zend => '/usr/lib/php5/20121212',
     notify => Service['httpd'],

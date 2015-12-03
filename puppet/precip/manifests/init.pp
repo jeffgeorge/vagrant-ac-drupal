@@ -67,6 +67,12 @@ class precip {
     require => Package['g++']
   }
 
+  # WKhtmltopdf using jlondon/wkhtmltox module
+  # as described here: https://forge.puppetlabs.com/jlondon/wkhtmltox
+  class { 'wkhtmltox':
+    ensure => present,
+  }
+
   # Kick off the rest of our manifests
   include 'precip::php'
   include 'precip::httpd'
