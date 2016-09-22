@@ -40,6 +40,7 @@ Vagrant.configure(2) do |config|
   config.vm.network :private_network, ip: "10.0.0.11"
   config.vm.hostname = "precip.vm"
   config.hostsupdater.aliases = drupal_sites.collect { |k,v| v["host"] }.concat(drupal_sites.collect { |k,v| v["aliases"] }.flatten.select! { |x| !x.nil? })
+  config.hostsupdater.aliases.push("pml.precip.vm") 
 
   # Ensure users exist before we mount stuff
   config.useradd.users = {
