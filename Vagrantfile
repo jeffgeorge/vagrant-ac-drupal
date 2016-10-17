@@ -111,6 +111,9 @@ Vagrant.configure(2) do |config|
     # on Linux guests for performance
     # https://github.com/geerlingguy/drupal-vm/issues/212
     vb.customize ["modifyvm", :id, "--paravirtprovider", "kvm"]
+    # Now that we're off "legacy" paravirtprovider, we can use virtio for nics
+    vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+    vb.customize ["modifyvm", :id, "--nictype2", "virtio"]
     # Defer DNS resolution to the host for performance
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     # Prevent Virtualbox status errors about vram
