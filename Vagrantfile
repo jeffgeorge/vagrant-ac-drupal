@@ -102,7 +102,11 @@ Vagrant.configure(2) do |config|
     vb.customize ["modifyvm", :id, "--ioapic", "on"]
     # Use ICH9 for performance
     vb.customize ["modifyvm", :id, "--chipset", "ich9"]
-    # Deffer DNS resolution to the host for performance
+    # Use kvm (instead of legacy) as the paravirtprovider
+    # on Linux guests for performance
+    # https://github.com/geerlingguy/drupal-vm/issues/212
+    vb.customize ["modifyvm", :id, "--paravirtprovider", "kvm"]
+    # Defer DNS resolution to the host for performance
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     # Prevent Virtualbox status errors about vram
     vb.customize ["modifyvm", :id, "--vram", "10"]
