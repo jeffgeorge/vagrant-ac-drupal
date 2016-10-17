@@ -92,6 +92,7 @@ class precip {
   include 'precip::httpd'
   include 'precip::database'
   include 'precip::pimpmylog'
+  include 'precip::phpmemcacheadmin'
   
   # More elegant workaround for vbguest's issue #95
   # See: https://github.com/dotless-de/vagrant-vbguest/issues/95#issuecomment-163777475
