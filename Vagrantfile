@@ -137,9 +137,10 @@ Vagrant.configure(2) do |config|
     cpus = cpus / 2 if cpus > 1
     if cpus > 0
       vb.customize ["modifyvm", :id, "--cpus", cpus]
-      if configured < 1
-        puts "CPUs set to: #{cpus}"
-      end
+      # Suppress CPU Setting Noise, uncomment for debug purposes
+      # if configured < 1
+      #   puts "CPUs set to: #{cpus}"
+      # end
     end
     configured = 1
   end
