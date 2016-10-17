@@ -96,7 +96,7 @@ class precip::php {
   
   # Add Composer's vendor directory to the vagrant user's $PATH
   file { '/home/vagrant/.pam_environment':
-    mode    => 644,
+    mode    => '0644',
     content => 'PATH DEFAULT=${PATH}:/home/vagrant/.composer/vendor/bin',
     require => Class['composer'],
   }

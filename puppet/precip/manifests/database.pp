@@ -2,7 +2,7 @@ class precip::database {
   file {"/etc/mysql":
     owner => "mysql",
     group => "mysql",
-    mode => 755,
+    mode => '0755',
     ensure => "directory",
   }  
   
