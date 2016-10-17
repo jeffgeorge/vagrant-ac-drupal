@@ -81,8 +81,12 @@
 #
 
 drupal_sites = {
-   "example" => {
-     "host" => "example.vm",
-     "path" => "example/docroot"
-   },
+#   "example" => {
+#     "host" => "example.vm",
+#     "path" => "example/docroot"
+#   },
+}
+
+external_hosts = {
+
 }

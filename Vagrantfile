@@ -19,6 +19,11 @@ if File.file?('.vagrant/machines/default/virtualbox/action_provision')
   first_boot = false
 end
 
+# Determine if our config.rb exists or not, fail gracefully
+if !File.file?('config.rb')
+  abort("Error: 'config.rb' is missing. Please review README.md and config.rb-dist to create one.")
+end
+
 ext_config = File.read 'config.rb'
 eval ext_config
 
