@@ -10,3 +10,4 @@ puppet/modules/*
 precip.box
 *.vdi
 .idea
+.vmname

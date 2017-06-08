@@ -13,6 +13,16 @@ if File.file?('.vagrant/machines/default/virtualbox/action_provision')
   first_boot = false
 end
 
+# Determine the VM name for this instance
+if !File.file?('.vmname')
+  vm_name = "precip_" + Time.now.to_i.to_s
+  open('.vmname', 'w') do |f|
+    f.puts vm_name
+  end
+else
+	vm_name = File.read '.vmname'
+end
+
 # Determine if our config.rb exists or not, fail gracefully
 if !File.file?('config.rb')
   abort("Error: 'config.rb' is missing. Please review README.md and config.rb-dist to create one.")
@@ -94,8 +104,8 @@ Vagrant.configure(2) do |config|
   # Configure the VM. Tweak as needed
   configured = -1
   config.vm.provider :virtualbox do |vb|
-    # Name this virtual machine "precip"
-    vb.customize ["modifyvm", :id, "--name", "precip"]
+    # Provide a unique name for this virtual machine
+    vb.customize ["modifyvm", :id, "--name", vm_name]
     # IOAPIC is needed for a 64bit host for multiple cures
     vb.customize ["modifyvm", :id, "--ioapic", "on"]
     # Use ICH9 for performance
