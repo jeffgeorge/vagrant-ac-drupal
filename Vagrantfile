@@ -128,6 +128,8 @@ Vagrant.configure(2) do |config|
     vb.customize ["modifyvm", :id, "--vram", "10"]
     # Prevent a time drift of more than a minute from the host
     vb.customize ["guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 60000]
+    # Enable host IO cache (https://joeshaw.org/terrible-vagrant-virtualbox-performance-on-mac-os-x/#update)
+    vb.customize ["storagectl", :id, "--name", "IDE Controller", "--hostiocache", "on"]
     # Set reserved memory at 2GB, as we've never seen it actively use more than ~1.5G
     vb.customize ["modifyvm", :id, "--memory", 2048]
     # Give half of cpu cores as the host (if more than 1), otherwise leave as default
