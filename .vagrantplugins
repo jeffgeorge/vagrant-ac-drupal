@@ -7,6 +7,7 @@ required_plugins = {
   'vagrant-useradd'            => '0.0.1',
   'vagrant-bindfs'             => '1.0.8',
   'vagrant-persistent-storage' => '0.0.33',
+  'vagrant-gatling-rsync'      => '~>0.9.0',
 }
 
 needs_restart = false

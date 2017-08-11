@@ -101,6 +101,10 @@
 #
 # vm_name = "not-precip"
 
+# Use rsync instead of NFS for site files. This can improve performance on larger sites.
+#
+# rsync = true
+
 # We offer a partially pre-built version of the Precip Base Box, which ships with 
 # all keys and base packages pre-installed, so all that's left is installing PHP, 
 # Apache, MySQL, and Configuring everything. This can help on restrictive networks

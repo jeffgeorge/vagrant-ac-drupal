@@ -8,6 +8,7 @@ packaging_mode = false
 forward_ssh_agent = false
 vm_name = "precip"
 use_packaged_precip = false
+rsync = false
 
 # Determine if this is our first boot or not. 
 # If there's a better way to figure this out we now have a single place to change.
@@ -78,7 +79,19 @@ Vagrant.configure(2) do |config|
   config.ssh.forward_agent = forward_ssh_agent
 
   # Synced Folders
-  if Vagrant::Util::Platform.windows?
+  if rsync
+    # For large codebases, rsync is *far* more performant than NFS.
+    config.vm.synced_folder drupal_basepath, "/srv/www", type: "rsync", rsync__exclude: [".git/", "*.sql", "db/", "**/sites/*/files"], owner: "vagrant", group: "www-data"
+    # Vagrant's own rsync plugin is absurdly slow to sync, so use Gatling instead:
+    # https://github.com/smerrill/vagrant-gatling-rsync
+    # Configure the window for gatling to coalesce writes.
+    if Vagrant.has_plugin?("vagrant-gatling-rsync")
+      config.gatling.latency = 1
+      config.gatling.time_format = "%H:%M:%S"
+      # Automatically sync when machines with rsync folders come up.
+      config.gatling.rsync_on_startup = true
+    end
+  elsif Vagrant::Util::Platform.windows?
     # Windows gets vboxsf, because it can't do nfs + bindfs
     config.vm.synced_folder drupal_basepath, "/srv/www", owner: "www-data", group: "www-data"
   else
