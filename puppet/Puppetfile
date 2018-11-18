@@ -8,10 +8,12 @@ mod 'puppetlabs-apt', "4.1.0"
 mod 'puppetlabs-mysql'
 mod 'puppetlabs-vcsrepo'
 mod 'puppetlabs-stdlib'
+
 mod 'ftaeger-mailhog',
   :git => "https://github.com/jeffgeorge/ftaeger-mailhog.git",
   :ref => "remove_wget_cache_dir"
 
 mod 'saz-memcached'
+mod 'elastic-elasticsearch', '5.4.3'
 
 mod 'clwdev-precip', :path => '/vagrant/puppet/precip'

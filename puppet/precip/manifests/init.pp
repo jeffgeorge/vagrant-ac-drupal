@@ -15,6 +15,7 @@ class precip {
     'vim',
     'g++',
     'software-properties-common',
+    'ruby-augeas',
     ]:
     ensure => present,
   }
@@ -98,6 +99,23 @@ class precip {
 
   # Install Memcached
   class { 'memcached': }
+  
+  # Install Elasticsearch
+  # (Allows VM host access and enables CORS for all .vm hosts)
+  class { 'elasticsearch':
+		restart_on_change       => true,
+		java_install            => true,
+		instances => {
+			'es-01' => {
+				'config' => {
+					'network.host' => '0.0.0.0',
+					'network.bind_host' => '0',
+					'http.cors.enabled' => 'true',
+					'http.cors.allow-origin' => '/https?:\/\/.*\.vm/',
+				},
+			},
+		},
+  }
 
   # Install Mailhog, back to being handled by ftaeger-mailhog
   class { 'mailhog':
